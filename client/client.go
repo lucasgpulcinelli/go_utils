@@ -10,8 +10,11 @@ import (
 )
 
 var (
-	addr *string = flag.String("addr", "http://server", "address")
-	port *int    = flag.Int("port", 8080, "port")
+	addr    *string = flag.String("addr", "http://server", "address")
+	port    *int    = flag.Int("port", 8080, "port")
+	sleep_t *int    = flag.Int("time", 1000,
+		"time in ms to sleep between requests",
+	)
 )
 
 func main() {
@@ -21,7 +24,7 @@ func main() {
 	log := log.Default()
 
 	for {
-		time.Sleep(time.Second)
+		time.Sleep(time.Duration(*sleep_t) * time.Millisecond)
 
 		r, err := client.Get(fmt.Sprintf("%s:%d", *addr, *port))
 		if err != nil {
