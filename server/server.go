@@ -8,8 +8,13 @@ import (
 )
 
 var (
-	port          *int        = flag.Int("port", 8080, "The port attached to the server")
-	response      *string     = flag.String("response", "Hello, world!", "The response the server will give")
+	port *int = flag.Int("port", 8080,
+		"The port attached to the server",
+	)
+	response *string = flag.String("response", "Hello, world!",
+		"The response the server will give",
+	)
+
 	logger        *log.Logger = log.Default()
 	num_responses int         = 0
 )
@@ -25,7 +30,7 @@ func main() {
 	logger.Fatalf("Server stopped: %s", err)
 }
 
-func HelloHandler(w http.ResponseWriter, _ *http.Request) {
+func HelloHandler(w http.ResponseWriter, _req *http.Request) {
 	fmt.Fprintf(w, *response)
 
 	num_responses++
