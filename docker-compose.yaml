@@ -28,3 +28,16 @@ services:
     depends_on:
       - proxy
     command: --addr http://proxy
+
+
+  httptransfer:
+    build:
+      context: ./httptransfer
+      dockerfile: ../Dockerfile
+      args:
+        - PROJECT=httptransfer
+    volumes:
+      - "./httptransfer/data/:/data/"
+    ports:
+      - "20003:8080"
+    command: --get /data/get_file --post /data/post_file
