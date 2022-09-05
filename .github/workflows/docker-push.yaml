@@ -7,15 +7,19 @@ jobs:
   docker-push:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - name: login 
-        env:
-          DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
-        run:
-          bash ./.github/scripts/login.sh
-      - name: build
+      - name: Clone git Repository
+        uses: actions/checkout@v3
+      
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: lucasegp
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      
+      - name: Build Image
         run:
           bash ./.github/scripts/build.sh
-      - name: push
+      
+      - name: Push Image
         run:
           bash ./.github/scripts/push.sh
