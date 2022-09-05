@@ -1,0 +1,19 @@
+on:
+  push:
+    tags:
+      - '**/v[0-9]+.[0-9]+'
+
+jobs:
+  docker-push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: login
+        run:
+          bash ./.github/scripts/login.sh
+      - name: build
+        run:
+          bash ./.github/scripts/build.sh
+      - name: push
+        run:
+          bash ./.github/scripts/push.sh
