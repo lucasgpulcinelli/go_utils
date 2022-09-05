@@ -3,4 +3,4 @@
 source ./.github/common.sh
 
 
-docker push lucasegp/$project:$version
+docker push lucasegp/simple-$project:$version
