@@ -1,0 +1,19 @@
+services:
+
+  httptransfer:
+    image: lucasegp/simple-httptransfer
+    volumes:
+      - "./data/:/data/"
+    ports:
+      - "20001:8080"
+    command: --get /data/get_file --post /data/post_file
+
+  #it was possible to just assign port 80 of httptransfer directly to the host,
+  # but, for demonstration purposes, the proxy service was used
+  proxy:
+    image: lucasegp/simple-proxy
+    depends_on:
+      - httptransfer
+    ports:
+      - "80:8080"
+    command: --addr httptransfer:8080

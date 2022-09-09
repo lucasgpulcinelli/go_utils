@@ -1,0 +1,19 @@
+services:
+  server:
+    image: lucasegp/simple-server
+    ports:
+      - "20001:8080"
+
+  proxy:
+    image: lucasegp/simple-proxy
+    depends_on:
+      - server
+    ports:
+      - "80:8080"
+
+  client:
+    image: lucasegp/simple-client
+    depends_on:
+      - proxy
+    command: --addr http://proxy
+
