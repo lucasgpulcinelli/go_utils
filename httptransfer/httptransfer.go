@@ -51,6 +51,13 @@ func main() {
 }
 
 func FileGetRequest(w http.ResponseWriter, req *http.Request) {
+	_, err := fp_get.Seek(0, io.SeekStart)
+	if err != nil {
+		logger.Printf("Post request seek fp_post: %v", err)
+		w.WriteHeader(500)
+		return
+	}
+
 	b := make([]byte, 32*1024)
 
 	for {
